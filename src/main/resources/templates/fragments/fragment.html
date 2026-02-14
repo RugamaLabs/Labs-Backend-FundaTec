@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+    <!-- Fragment: taskList -->
+    <!-- Parameters:
+     - title: The title of the section (e.g., 'Pendientes')
+     - tasks: The list of tasks to iterate over
+     - itemClass: The CSS class for the task item (e.g., 'pending', 'inprogress', 'done')
+     - showDeadline: Boolean to indicate if deadline should be shown
+-->
+    <div th:fragment="taskList(title, tasks, itemClass, showDeadline, showForm)" class="tasks-group">
+        <h3 th:text="${title}">Título de Sección</h3>
+
+        <div th:if="${#lists.isEmpty(tasks)}">
+            No hay tareas <span th:text="${#strings.toLowerCase(title)}">en esta sección</span>.
+        </div>
+
+        <form th:if="${showForm}" method="POST" class="new-task-form" th:object="${newTask}">
+            <!-- Solo capturamos la descripción -->
+            <label for="description">Nueva tarea:</label>
+            <input th:field="*{description}" type="text" placeholder="Describe la tarea..." />
+            <span class="validationError" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Desc
+                error</span>
+
+            <select th:field="*{deadline}">
+                <option value="">Fecha límite:</option>
+                <option value="1WEEK">1 semana</option>
+                <option value="1MONTH">1 mes</option>
+            </select>
+
+            <!-- Estado fijo a PENDING -->
+            <input type="hidden" name="status" value="PENDING" />
+
+            <button type="submit">Crear tarea</button>
+        </form>
+
+        <div th:each="task : ${tasks}">
+            <div th:class="'task-item ' + ${itemClass}">
+                <div class="task-desc" th:text="${task.description}">Descripción de la tarea...</div>
+
+                <div th:if="${showDeadline}">
+                    <strong>Fecha límite:</strong>
+                    <span
+                        th:text="${task.deadline != null} ? ${#temporals.format(task.deadline, 'dd/MMMM/yyyy')} : 'No especificada'">
+                        No especificada
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
