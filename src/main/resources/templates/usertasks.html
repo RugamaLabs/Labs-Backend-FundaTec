@@ -52,7 +52,7 @@
 
                 <!-- INPROGRESS -->
                 <section
-                    th:replace="~{fragments/fragment :: taskList('En progreso', ${user.tasks.?[status.name() == 'INPROGRESS']}, 'inprogress', false, false)}">
+                    th:replace="~{fragments/fragment :: taskList('En progreso', ${user.tasks.?[status.name() == 'INPROGRESS']}, 'inprogress', true, true)}">
                 </section>
 
                 <!-- DONE -->
