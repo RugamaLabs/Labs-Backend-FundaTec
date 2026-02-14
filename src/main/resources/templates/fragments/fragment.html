@@ -47,6 +47,14 @@
                         No especificada
                     </span>
                 </div>
+
+                <!-- Botón Avanzar (solo para tareas que no están en DONE) -->
+                <div th:if="${task.status.name() != 'DONE'}">
+                    <form method="POST" th:action="@{/user/tasks/advance}" style="display: inline;">
+                        <input type="hidden" name="taskId" th:value="${task.id}" />
+                        <button type="submit" class="advance-btn">Avanzar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

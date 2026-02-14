@@ -46,4 +46,43 @@ public class UserTasksController {
         user.addTask(newTask);
         return "redirect:/user/tasks";
     }
+
+    @PostMapping("/advance")
+    public String advanceTask(@RequestParam("taskId") String taskId,
+            @ModelAttribute("user") User user) {
+        log.info("Advancing task with ID: " + taskId);
+
+        // Find the task by ID
+        Task taskToAdvance = user.getTasks().stream()
+                .filter(task -> task.getId().equals(taskId))
+                .findFirst()
+                .orElse(null);
+
+        if (taskToAdvance != null) {
+            // Remove the old task
+            user.getTasks().remove(taskToAdvance);
+
+            // Create a new task with advanced status
+            Task.Status newStatus = advanceStatus(taskToAdvance.getStatus());
+            Task updatedTask = new Task(
+                    taskToAdvance.getDescription(),
+                    taskToAdvance.getCreated(),
+                    taskToAdvance.getDeadline(),
+                    newStatus);
+
+            // Add the updated task
+            user.addTask(updatedTask);
+            log.info("Task advanced from {} to {}", taskToAdvance.getStatus(), newStatus);
+        }
+
+        return "redirect:/user/tasks";
+    }
+
+    private Task.Status advanceStatus(Task.Status currentStatus) {
+        return switch (currentStatus) {
+            case PENDING -> Task.Status.INPROGRESS;
+            case INPROGRESS -> Task.Status.DONE;
+            case DONE -> Task.Status.DONE; // Already done, no change
+        };
+    }
 }
