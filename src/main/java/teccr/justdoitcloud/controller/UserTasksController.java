@@ -18,7 +18,7 @@ public class UserTasksController {
 
     @ModelAttribute(name = "user")
     public User user() {
-        User usr =  new User("christine", "Christine McVie", "christine@fm.com", User.Type.REGULAR);
+        User usr = new User("jrugama96", "Jonathan Rugama", "jrugama96@outlook.com", User.Type.REGULAR);
         // Add a few sample tasks
         Task task = new Task("Comprar Leche", LocalDateTime.now(), null, Task.Status.DONE);
         usr.addTask(task);
@@ -28,7 +28,6 @@ public class UserTasksController {
         return usr;
     }
 
-
     @GetMapping
     public String showUserTasks(Model model) {
         model.addAttribute("newTask", new Task("", LocalDateTime.now(), null, Task.Status.INPROGRESS));
@@ -37,8 +36,8 @@ public class UserTasksController {
 
     @PostMapping
     public String addTask(@Valid @ModelAttribute(name = "newTask") Task newTask,
-                          Errors errors,
-                          @ModelAttribute("user") User user) {
+            Errors errors,
+            @ModelAttribute("user") User user) {
         log.info("Adding task: " + newTask);
         if (errors.hasErrors()) {
             return "usertasks";
