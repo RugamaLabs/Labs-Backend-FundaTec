@@ -21,14 +21,16 @@ public class TimingInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+            Exception ex) {
         Object attr = request.getAttribute(ATTR_START_TIME);
         if (attr instanceof Long) {
             long start = (Long) attr;
             long end = System.nanoTime();
             double seconds = (end - start) / 1_000_000_000.0;
 
-//            log.info("Handler {} executed in {} seconds", handler.toString(), String.format("%.4f", seconds));
+            // log.info("Handler {} executed in {} seconds", handler.toString(),
+            // String.format("%.4f", seconds));
         }
     }
 }
