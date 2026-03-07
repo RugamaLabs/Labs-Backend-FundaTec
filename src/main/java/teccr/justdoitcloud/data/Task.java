@@ -21,7 +21,7 @@ public class Task {
     private final LocalDateTime createdAt;
     private final LocalDate deadline;
     @NotNull
-    private final Status status;
+    private Status status;
 
     @Column("user_id")
     private Long userId;
