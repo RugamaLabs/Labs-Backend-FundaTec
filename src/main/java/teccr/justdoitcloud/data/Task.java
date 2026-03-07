@@ -15,10 +15,10 @@ import java.time.LocalDate;
 public class Task {
     @Id
     private final Long id;
-    @Size(min=3, message = "Descripcion debe tener al menos 3 caracteres")
+    @Size(min = 3, message = "Descripcion debe tener al menos 3 caracteres")
     private final String description;
     @Column("created_at")
-    private final LocalDateTime createdAt;
+    private LocalDateTime createdAt;
     private final LocalDate deadline;
     @NotNull
     private Status status;

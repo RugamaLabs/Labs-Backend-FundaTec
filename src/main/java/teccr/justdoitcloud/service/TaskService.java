@@ -5,6 +5,7 @@ import teccr.justdoitcloud.data.Task;
 import teccr.justdoitcloud.data.User;
 import teccr.justdoitcloud.repository.TaskRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,6 +23,7 @@ public class TaskService {
 
     public void addTaskToUser(User user, Task task) {
         task.setUserId(user.getId());
+        task.setCreatedAt(LocalDateTime.now());
         taskRepository.save(task);
     }
 

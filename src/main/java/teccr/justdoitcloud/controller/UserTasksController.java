@@ -26,7 +26,7 @@ public class UserTasksController {
 
     @GetMapping
     public String showUserTasks(Model model) {
-        Task newTask = new Task(null, "", LocalDateTime.now(), null);
+        Task newTask = new Task(null, "", null);
         newTask.setStatus(Task.Status.PENDING);
         model.addAttribute("newTask", newTask);
         // Retrieve user tasks and add to user object in session
@@ -40,8 +40,8 @@ public class UserTasksController {
 
     @PostMapping
     public String addTask(@Valid @ModelAttribute(name = "newTask") Task newTask,
-                          Errors errors,
-                          @ModelAttribute("user") User user) {
+            Errors errors,
+            @ModelAttribute("user") User user) {
         log.info("Adding task: " + newTask);
         if (errors.hasErrors()) {
             return "usertasks";
