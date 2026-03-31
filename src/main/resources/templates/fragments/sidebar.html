@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<aside class="sidebar" th:fragment="sidebar(activePage)">
+
+    <!-- Logo area -->
+    <div class="logo">
+        <a th:href="@{/}"><img th:src="@{/images/JustDoIt.png}" alt="JustDoIt Logo" width="200" height="200"></a>
+    </div>
+
+    <!-- Navigation area -->
+    <nav class="navigation" th:if="${activePage != 'login'}">
+        <h3>Opciones</h3>
+        <ul>
+            <li>
+                <strong th:if="${activePage == 'inicio'}">Inicio</strong>
+                <a th:unless="${activePage == 'inicio'}" th:href="${user != null and user.type.name() == 'ADMIN'} ? @{/admin} : @{/user/home}">Inicio</a>
+            </li>
+            <li th:if="${user != null and user.type.name() == 'ADMIN'}">
+                <strong th:if="${activePage == 'admin-users'}">Administración de usuarios</strong>
+                <a th:unless="${activePage == 'admin-users'}" th:href="@{/admin/users}">Administración de usuarios</a>
+            </li>
+            <li>
+                <strong th:if="${activePage == 'tasks'}">Tareas de usuario actual</strong>
+                <a th:unless="${activePage == 'tasks'}" th:href="@{/user/tasks}">Tareas de usuario actual</a>
+            </li>
+            <li>
+                <form th:action="@{/logout}" method="post" style="display:inline">
+                    <button type="submit" class="link-button">Cerrar sesión</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+</aside>
+
+</body>
+</html>

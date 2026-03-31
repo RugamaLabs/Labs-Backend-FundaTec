@@ -11,28 +11,7 @@
 <div class="container">
 
     <!-- Left column -->
-    <aside class="sidebar">
-        <div class="logo">
-            <a th:href="@{/}"><img th:src="@{/images/JustDoIt.png}" alt="JustDoIt Logo" width="200" height="200"></a>
-        </div>
-
-        <nav class="navigation">
-            <h3>Opciones</h3>
-            <ul>
-                <li>
-                    <a th:href="@{/user/home}">Inicio</a>
-                </li>
-                <li>
-                    <strong>Tareas de usuario actual</strong>
-                </li>
-                <li>
-                    <form th:action="@{/logout}" method="post" style="display:inline">
-                        <button type="submit" class="link-button">Cerrar sesión</button>
-                    </form>
-                </li>
-            </ul>
-        </nav>
-    </aside>
+    <div th:replace="~{fragments/sidebar :: sidebar('tasks')}"></div>
 
     <!-- Right column -->
     <main class="content">
