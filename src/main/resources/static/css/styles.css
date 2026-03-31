@@ -156,7 +156,9 @@
  }
 
  .login-form input[type="text"],
- .login-form input[type="password"] {
+ .login-form input[type="password"],
+ .login-form input[type="email"],
+ .login-form select {
      padding: 10px 12px;
      border: 1px solid #dbe6f1;
      border-radius: 8px;
@@ -167,7 +169,9 @@
  }
 
  .login-form input[type="text"]:focus,
- .login-form input[type="password"]:focus {
+ .login-form input[type="password"]:focus,
+ .login-form input[type="email"]:focus,
+ .login-form select:focus {
      border-color: #6ea8ff;
      box-shadow: 0 4px 12px rgba(110,168,255,0.12);
  }
@@ -200,3 +204,12 @@
  }
 
  .validationError {font-size: 0.9rem; color: red; margin-top: 4px;}
+
+ .success-message {
+     background: #d4edda;
+     color: #155724;
+     padding: 12px 16px;
+     border-radius: 8px;
+     margin-bottom: 16px;
+     border: 1px solid #c3e6cb;
+ }
